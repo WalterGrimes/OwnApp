@@ -12,6 +12,6 @@ const App = () => {
      <Profile/> 
      </div>
   );
-}
+}            
 
 export default App;
