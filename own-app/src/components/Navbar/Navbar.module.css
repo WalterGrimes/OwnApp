@@ -1,8 +1,14 @@
-.nav{
+.nav {
   grid-area: n;
   background-color: burlywood;
+  padding: 10px;
 }
 
-.item{
-  color:white
+.item a{
+  color: white;
+  text-decoration: none;
+}
+
+.item a.activeClick {
+  color: blanchedalmond;
 }
