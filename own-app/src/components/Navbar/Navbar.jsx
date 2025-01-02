@@ -40,6 +40,13 @@ const Navbar = () => {
           Settings
         </NavLink>
       </div>
+      <div className={s.item}>
+        <NavLink 
+          to="/Whyus" 
+          className={({ isActive }) => isActive ? s.activeClick : undefined}>
+          Why us?
+        </NavLink>
+      </div>
     </nav>
   );
 };

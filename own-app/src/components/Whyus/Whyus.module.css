@@ -1,0 +1,11 @@
+.Whyus{
+    display: grid;
+    grid-template-rows: 60px 1fr;
+    grid-template-columns: 2fr 10fr;
+}
+.CelebrityReviews{
+    padding: 10px;
+}
+.WhyusItem{
+    padding: 10px;
+}
