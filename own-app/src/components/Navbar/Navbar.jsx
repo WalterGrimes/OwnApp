@@ -14,16 +14,9 @@ const Navbar = () => {
       </div>
       <div className={s.item}>
         <NavLink 
-          to="/messages" 
-          className={({ isActive }) => isActive ? s.activeClick : undefined}>
-          Messages
-        </NavLink>
-      </div>
-      <div className={s.item}>
-        <NavLink 
           to="/news" 
           className={({ isActive }) => isActive ? s.activeClick : undefined}>
-          News
+          New products
         </NavLink>
       </div>
       <div className={s.item}>

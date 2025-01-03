@@ -1,19 +1,14 @@
 import React from "react";
 import s from "./Profile.module.css";
 import MyPosts from "./MyPosts/MyPosts";
+import ProfileInfo from "./ProfileInfo/ProfileInfo";
 
 const Profile = () => {
   return (
-    <div>
-      <img
-        src="https://avatars.mds.yandex.net/get-mpic/4304254/img_id8368786378751231346.jpeg/orig"
-        alt="content image"
-      />
-      <div>
-        Description of Product
-      </div>
+    <div className={s.profile}>
+      <ProfileInfo />
       <MyPosts />
-    </div> 
+    </div>
   );
 };
 
