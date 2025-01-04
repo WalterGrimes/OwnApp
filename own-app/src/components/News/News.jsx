@@ -1,28 +1,13 @@
 import React from "react";
 import s from './News.module.css';
 import { NavLink } from "react-router-dom";
+import NewsItem from "./NewsItem/NewsItem";
 
-// Подкомпонента для отображения преимущества
-const NewsItem = (props) => {
-    let path = '/news/' + props.id;
-
-    return (
-        <div className={s.newproduct}>
-            <NavLink to={path}>{props.advantage}</NavLink>
-        </div>
-    );
-}
-
-const News = () => {
-    let NewsData = [
-        { id: 1, advantage: 'Protein Maxler' },
-        { id: 2, advantage: 'Mezomorf crazy' },
-        { id: 3, advantage: 'Creatine blue' },
-        { id: 4, advantage: 'Gainer Bucked up' },
-    ]
+const News = (props) => {
+    
 
     // Используем правильное свойство "advantage"
-    let NewsElements = NewsData
+    let NewsElements = props.NewsData
         .map(newP => <NewsItem advantage={newP.advantage} id={newP.id} />)
 
     return (
