@@ -7,13 +7,7 @@ import Whyus from './components/Whyus/Whyus';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import News from './components/News/News';
 
-const App = ({ postData }) => {
-  let NewsData = [
-    { id: 1, advantage: 'Protein Maxler' },
-    { id: 2, advantage: 'Mezomorf crazy' },
-    { id: 3, advantage: 'Creatine blue' },
-    { id: 4, advantage: 'Gainer Bucked up' },
-]
+const App = ({ postData, NewsData }) => { // Добавляем NewsData в аргументы
   return (
     <BrowserRouter>
       <div className='app-wrapper'>
@@ -21,7 +15,7 @@ const App = ({ postData }) => {
         <Navbar />
         <div className='app-wrapper-content'>
           <Routes>
-            <Route path='/news' element={<News NewsData={NewsData}/>} />
+            <Route path='/news' element={<News NewsData={NewsData} />} /> {/* Исправлено */}
             <Route path='/profile' element={<Profile postData={postData} />} />
             <Route path='/whyus' element={<Whyus />} />
           </Routes>
@@ -30,6 +24,5 @@ const App = ({ postData }) => {
     </BrowserRouter>
   );
 };
-
 
 export default App;
