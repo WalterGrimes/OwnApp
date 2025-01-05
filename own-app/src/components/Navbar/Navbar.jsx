@@ -40,6 +40,13 @@ const Navbar = () => {
           Why us?
         </NavLink>
       </div>
+      <div className={s.item}>
+        <NavLink 
+          to="/favoriteproducts" 
+          className={({ isActive }) => isActive ? s.activeClick : undefined}>
+          Favorite products
+        </NavLink>
+      </div>
     </nav>
   );
 };
