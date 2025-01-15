@@ -9,3 +9,24 @@
 .WhyusItem{
     padding: 10px;
 }
+body {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+.textareaWrapper{
+    display: grid;
+    grid-template-columns: 1fr; 
+    gap: 20px;                 
+    margin-top: 80px;         
+    margin-bottom: 100px;      
+}
+.buttonWrapper{
+    margin-top: 175px;
+    right: 30px;
+}
+  .textareaWrapper textarea {
+    padding: 10px;            
+    width: 100%;             
+    height: 100px;          
+    box-sizing: border-box;    
+  }
+  

@@ -1,41 +1,65 @@
 import React from "react";
-import s from './Whyus.module.css';
+import s from "./Whyus.module.css";
 
-const Whyus = () => {
-    return (
-        <div>
-            <div className={s.Whyus}>
-                <div className={s.WhyusItem}>
-                    <div className={s.benefits}>
-                    First Advantage:
-                    </div>
-                    <div className={s.benefits}>
-                    Second Advantage: 
-                    </div>
-                    <div className={s.benefits}>
-                    Third Advantage:
-                    </div>
-                    <div className={s.benefits}>
-                    Fourth Advantage: 
-                    </div>
-                </div>
-                <div className={s.CelebrityReviews}>
-                    <div className={s.review}>
-                        Top Quality Products – Guaranteed 100% original and effective.
-                    </div>
-                    <div className={s.review}>
-                    Endorsed by Celebrities – Trusted by Dwayne "The Rock" Johnson, Chris Hemsworth, and other top athletes.
-                    </div>
-                    <div className={s.review}>
-                    Innovative Solutions – Cutting-edge designs and formulas.
-                    </div>
-                    <div className={s.review}>
-                    Nationwide Leader – Recognized as the best in the country.
-                    </div>
-                </div>
+const Whyus = (props) => {
+  console.log("Advantages (Whyus):", props.advantages);
+  console.log("Reviews:", props.reviews);
+
+  const {
+    advantages,
+    reviews,
+    newQuestionText = "",
+    updateNewQuestionText,
+    addQuestion,
+  } = props;
+
+  const onSendQuestion = () => {
+    if (newQuestionText.trim()) { // Используем newQuestionText из props
+      addQuestion();
+      updateNewQuestionText(""); // Очищаем текст
+    }
+  };
+
+  const onQuestionChange = (event) => {
+    const text = event.target.value; // Получаем значение из event
+    updateNewQuestionText(text); // Обновляем текст
+  };
+
+  return (
+    <div className={s.Whyus}>
+      {advantages && (
+        <div className={s.WhyusItem}>
+          {advantages.map((advantage, i) => (
+            <div key={i} className={s.benefits}>
+              {advantage}
             </div>
+          ))}
         </div>
-    );
-}
+      )}
+      {reviews && (
+        <div className={s.CelebrityReviews}>
+          {reviews.map((review, i) => (
+            <div key={i} className={s.review}>
+              {review}
+            </div>
+          ))}
+        </div>
+      )}
+      <div className={s.textareaWrapper}>
+        <textarea
+          onChange={onQuestionChange} // Обработчик изменения текста
+          className={s.textarea}
+          placeholder="Have questions? Please ask us!"
+          value={newQuestionText} // Значение берётся из props
+        ></textarea>
+      </div>
+      <div className={s.buttonWrapper}>
+        <button className={s.button} onClick={onSendQuestion}>
+          Send question
+        </button>
+      </div>
+    </div>
+  );
+};
 
 export default Whyus;

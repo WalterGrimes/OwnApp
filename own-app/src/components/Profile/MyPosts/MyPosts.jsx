@@ -7,8 +7,9 @@ const MyPosts = (props) => {
 //  let newProduct = React.createRef();
  
  let addProduct = () => {
+  debugger;
   // let product = newProduct.current.value;
-   alert('you added new product')
+   props.addProduct('you added new product')
 }
   return (
     <div>
@@ -31,3 +32,6 @@ const MyPosts = (props) => {
 };
 
 export default MyPosts;
+
+
+

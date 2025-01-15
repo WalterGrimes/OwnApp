@@ -8,7 +8,10 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import News from './components/News/News';
 import FavProduct from './components/FavoriteProducts/FavProduct';
 
-const App = ({ postData, NewsData }) => { // Добавляем NewsData в аргументы
+const App = (props) => {
+  console.log("NewsData (App):", props.NewsData);
+
+
   return (
     <BrowserRouter>
       <div className='app-wrapper'>
@@ -16,15 +19,42 @@ const App = ({ postData, NewsData }) => { // Добавляем NewsData в ар
         <Navbar />
         <div className='app-wrapper-content'>
           <Routes>
-            <Route path='/news' element={<News NewsData={NewsData} />} /> {/* Исправлено */}
-            <Route path='/profile' element={<Profile postData={postData} />} />
-            <Route path='/whyus' element={<Whyus />} />
-            <Route path='/favoriteproducts' element={<FavProduct />} /> 
+            <Route
+              path='/news'
+              element={<News NewsData={props.NewsData} />}
+            />
+            <Route
+              path='/profile'
+              element={
+                <Profile
+                  postData={props.productData}
+                  addProduct={props.addProduct}
+                />
+              }
+            />
+            <Route
+              path='/whyus'
+              element={
+                <Whyus
+                  advantages={props.NewsData.Whyus}
+                  reviews={props.NewsData.reviews}
+                  addQuestion={props.addQuestion}
+                  newQuestionText={props.newQuestionText}
+                  updateNewQuestionText={props.updateNewQuestionText}
+                />
+              }
+            />
+            <Route path='/favoriteproducts' element={<FavProduct />} />
+            <Route path='/settings' element={<div>Settings Page</div>} />
+            <Route path='/music' element={<div>Music Page</div>} />
           </Routes>
+            
         </div>
       </div>
     </BrowserRouter>
   );
 };
+
+
 
 export default App;
