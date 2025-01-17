@@ -14,15 +14,15 @@ const Whyus = (props) => {
   } = props;
 
   const onSendQuestion = () => {
-    if (newQuestionText.trim()) { // Используем newQuestionText из props
+    if (newQuestionText.trim()) { // Проверяем, что текст не пустой
       addQuestion();
-      updateNewQuestionText(""); // Очищаем текст
+      updateNewQuestionText(""); // Очищаем поле после отправки
     }
   };
 
   const onQuestionChange = (event) => {
-    const text = event.target.value; // Получаем значение из event
-    updateNewQuestionText(text); // Обновляем текст
+    const text = event.target.value; // Получаем текст из textarea
+    updateNewQuestionText(text); // Передаём его через props
   };
 
   return (
@@ -50,7 +50,7 @@ const Whyus = (props) => {
           onChange={onQuestionChange} // Обработчик изменения текста
           className={s.textarea}
           placeholder="Have questions? Please ask us!"
-          value={newQuestionText} // Значение берётся из props
+          value={newQuestionText} // Значение из props
         ></textarea>
       </div>
       <div className={s.buttonWrapper}>

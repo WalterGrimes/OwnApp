@@ -1,4 +1,7 @@
-import rerenderEntireTree from '../../render';
+
+let rerenderEntireTree = () =>{
+
+}
 
 let state = {
   profileProduct: {
@@ -56,5 +59,9 @@ export const addProduct = (product) => {
   state.profileProduct.productData.push(newProduct); // Добавляем продукт
   rerenderEntireTree(state);
 };
+
+export const subscribe = (observer) => {
+  rerenderEntireTree = observer;
+}
 
 export default state;
