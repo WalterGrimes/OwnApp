@@ -1,36 +1,39 @@
 import './index.css';
-import state, { subscribe } from './components/redux/state';
-import reportWebVitals from './reportWebVitals';   
+import store from './components/redux/state';
+import reportWebVitals from './reportWebVitals';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import { addProduct, addQuestion, updateNewQuestionText } from './components/redux/state';
+
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 let rerenderEntireTree = () => {
-  
+   
+
   root.render(
     <React.StrictMode>
       <App
-        productData={state.profileProduct.productData}
-        NewsData={state.NewProducts} // Передаём весь объект NewProducts
-        newQuestionText={state.NewProducts.newQuestionText}
-        addQuestion={addQuestion}
-        updateNewQuestionText={updateNewQuestionText}
-        addProduct={addProduct}
+        productData={store._state.profileProduct.productData}
+        NewsData={store._state.NewProducts}  // Убедитесь, что NewsData передается верно
+        newQuestionText={store._state.NewProducts.newQuestionText}
+        addQuestion={store.addQuestion.bind(store)}
+        updateNewQuestionText={store.updateNewQuestionText.bind(store)}
+        addProduct={store.addProduct.bind(store)}
       />
+
+
 
     </React.StrictMode>
   );
 };
 
 
-rerenderEntireTree(state);
+rerenderEntireTree(store.getState());
 
-subscribe(rerenderEntireTree);
+store.subscribe(rerenderEntireTree);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
