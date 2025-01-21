@@ -11,7 +11,6 @@ import FavProduct from './components/FavoriteProducts/FavProduct';
 const App = (props) => {
   console.log("NewsData (App):", props.NewsData);
 
-
   return (
     <BrowserRouter>
       <div className='app-wrapper'>
@@ -28,7 +27,7 @@ const App = (props) => {
               element={
                 <Profile
                   postData={props.productData}
-                  addProduct={props.addProduct}
+                  dispatch={props.dispatch} // Передаем dispatch
                 />
               }
             />
@@ -38,9 +37,8 @@ const App = (props) => {
                 <Whyus
                   advantages={props.NewsData.Whyus}
                   reviews={props.NewsData.reviews}
-                  addQuestion={props.addQuestion}
-                  newQuestionText={props.newQuestionText}
-                  updateNewQuestionText={props.updateNewQuestionText}
+                  newQuestionText={props.Questions.newQuestionText} // Передаем состояние из Questions
+                  dispatch={props.dispatch} // Передаем dispatch
                 />
               }
             />
@@ -48,13 +46,10 @@ const App = (props) => {
             <Route path='/settings' element={<div>Settings Page</div>} />
             <Route path='/music' element={<div>Music Page</div>} />
           </Routes>
-            
         </div>
       </div>
     </BrowserRouter>
   );
 };
-
-
 
 export default App;

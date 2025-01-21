@@ -1,12 +1,14 @@
 import React from "react";
 import s from "./Whyus.module.css";
+import { updateNewQuestionAC,addQuestionAC } from "../redux/state";
+
 
 const Whyus = (props) => {
   console.log("Advantages (Whyus):", props.advantages);
   console.log("Reviews:", props.reviews);
 
   const {
-    advantages,
+    advantages,  
     reviews,
     newQuestionText = "",
     updateNewQuestionText,
@@ -14,16 +16,17 @@ const Whyus = (props) => {
   } = props;
 
   const onSendQuestion = () => {
-    if (newQuestionText.trim()) { // Проверяем, что текст не пустой
-      addQuestion();
-      updateNewQuestionText(""); // Очищаем поле после отправки
+    if (props.newQuestionText.trim()) {
+      props.dispatch(addQuestionAC); // Отправляем вопрос
     }
   };
+  
 
   const onQuestionChange = (event) => {
-    const text = event.target.value; // Получаем текст из textarea
-    updateNewQuestionText(text); // Передаём его через props
+    const text = event.target.value;
+    props.dispatch( updateNewQuestionAC(text) ); // Передаем текст в сторе
   };
+  
 
   return (
     <div className={s.Whyus}>

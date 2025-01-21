@@ -3,39 +3,29 @@ import store from './components/redux/state';
 import reportWebVitals from './reportWebVitals';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
 import App from './App';
-
-
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
+// Функция рендера приложения
 let rerenderEntireTree = () => {
-   
-
   root.render(
     <React.StrictMode>
       <App
-        productData={store._state.profileProduct.productData}
-        NewsData={store._state.NewProducts}  // Убедитесь, что NewsData передается верно
-        newQuestionText={store._state.NewProducts.newQuestionText}
-        addQuestion={store.addQuestion.bind(store)}
-        updateNewQuestionText={store.updateNewQuestionText.bind(store)}
-        addProduct={store.addProduct.bind(store)}
+        productData={store.getState().profileProduct.productData} // Используем getState
+        NewsData={store.getState().NewProducts} // Используем getState
+        Questions={store.getState().Questions} // Передаем секцию вопросов
+        dispatch={store.dispatch.bind(store)} // Передаем dispatch
       />
-
-
-
     </React.StrictMode>
   );
 };
 
+// Изначальный рендер
+rerenderEntireTree();
 
-rerenderEntireTree(store.getState());
-
+// Подписка на изменения состояния
 store.subscribe(rerenderEntireTree);
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();  // Теперь это не вызывает ошибку
+// Включаем измерение производительности
+reportWebVitals();

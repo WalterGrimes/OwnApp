@@ -9,7 +9,7 @@ const MyPosts = (props) => {
  let addProduct = () => {
   debugger;
   // let product = newProduct.current.value;
-   props.addProduct('you added new product')
+   props.dispatch({ type: 'ADD-PRODUCT'});
 }
   return (
     <div>
