@@ -4,10 +4,8 @@ import { NavLink } from "react-router-dom";
 import NewsItem from "./NewsItem/NewsItem";
 
 const News = (props) => {
-    
-
-    // Используем правильное свойство "advantage"
-    let NewsElements = props.NewsData
+    // Используем переданный через пропсы объект NewsData
+    let NewsElements = props.NewsData.NewsData
         .map(newP => <NewsItem advantage={newP.advantage} id={newP.id} />)
 
     return (

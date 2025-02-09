@@ -1,5 +1,5 @@
 import './index.css';
-import store from './components/redux/state';
+import store from './components/redux/store';
 import reportWebVitals from './reportWebVitals';
 import React from 'react';
 import ReactDOM from 'react-dom/client';

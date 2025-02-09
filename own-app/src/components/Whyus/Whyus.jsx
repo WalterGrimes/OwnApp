@@ -1,23 +1,19 @@
 import React from "react";
 import s from "./Whyus.module.css";
-import { updateNewQuestionAC,addQuestionAC } from "../redux/state";
-
+import { updateNewQuestionAC,addQuestionAC } from "../redux/questions-reducer";
 
 const Whyus = (props) => {
-  console.log("Advantages (Whyus):", props.advantages);
-  console.log("Reviews:", props.reviews);
-
+  
   const {
     advantages,  
     reviews,
     newQuestionText = "",
-    updateNewQuestionText,
-    addQuestion,
   } = props;
 
   const onSendQuestion = () => {
     if (props.newQuestionText.trim()) {
-      props.dispatch(addQuestionAC); // Отправляем вопрос
+      props.dispatch(addQuestionAC());
+ // Отправляем вопрос
     }
   };
   
