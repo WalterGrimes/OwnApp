@@ -7,6 +7,8 @@ import Whyus from './components/Whyus/Whyus';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import News from './components/News/News';
 import FavProduct from './components/FavoriteProducts/FavProduct';
+import WhyusContainer from './components/Whyus/WhyusContainer';
+import store from './components/redux/store';
 
 const App = (props) => {
   console.log("NewsData (App):", props.NewsData);
@@ -34,12 +36,13 @@ const App = (props) => {
             <Route
               path='/whyus'
               element={
-                <Whyus
+                <WhyusContainer
                   advantages={props.NewsData.Whyus}
                   reviews={props.NewsData.reviews}
                   newQuestionText={props.Questions.newQuestionText} // Передаем состояние из Questions
                   dispatch={props.dispatch} // Передаем dispatch
-                />
+                  store={store}
+                  />
               }
             />
             <Route path='/favoriteproducts' element={<FavProduct />} />

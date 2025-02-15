@@ -6,10 +6,11 @@ const MyPosts = (props) => {
 
 //  let newProduct = React.createRef();
  
- let addProduct = () => {
+ let addProduct = () =>{
   debugger;
   // let product = newProduct.current.value;
-   props.dispatch({ type: 'ADD-PRODUCT'});
+  props.dispatch({ type: "ADD_PRODUCT", product: "New Product" });
+
 }
   return (
     <div>

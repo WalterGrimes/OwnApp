@@ -12,7 +12,8 @@ const Whyus = (props) => {
 
   const onSendQuestion = () => {
     if (props.newQuestionText.trim()) {
-      props.dispatch(addQuestionAC());
+      // props.dispatch(addQuestionAC());
+      props.onSendQuestion();
  // Отправляем вопрос
     }
   };
@@ -20,7 +21,10 @@ const Whyus = (props) => {
 
   const onQuestionChange = (event) => {
     const text = event.target.value;
-    props.dispatch( updateNewQuestionAC(text) ); // Передаем текст в сторе
+    console.log("onQuestionChange event:", event);
+
+    // props.dispatch( updateNewQuestionAC(text) ); // Передаем текст в сторе
+    props.updateNewQuestionAC(text);
   };
   
 

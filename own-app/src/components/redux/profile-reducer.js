@@ -11,31 +11,31 @@ const initialState = {
   },
 };
 
-const profileReducer = (state = initialState, action) => {
+const profileReducer = (state = initialState.profileProduct, action) => {
   switch (action.type) {
-    case ADD_PRODUCT:
-      if (!action.product || typeof action.product !== 'string') {
+    case "ADD_PRODUCT":
+      if (!action.product || typeof action.product !== "string") {
         console.error("Invalid product data!");
         return state;
       }
 
       const newProduct = {
-        id: state.profileProduct.productData.length + 1,
+        id: state.productData.length + 1,
         rating: "Unrated",
         ratingStatus: "No stars yet",
         comment: action.product,
       };
+
       return {
         ...state,
-        profileProduct: {
-          ...state.profileProduct,
-          productData: [...state.profileProduct.productData, newProduct],
-        },
+        productData: [...state.productData, newProduct],
       };
+
     default:
       return state;
   }
 };
+
 
 export const addProductAC = (product) => ({ type: ADD_PRODUCT, product });
 
