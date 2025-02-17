@@ -3,28 +3,30 @@ import s from "./MyPosts.module.css";
 import Post from "./Post/Post";
 
 const MyPosts = (props) => {
+  
+  //  let newProduct = React.createRef();
 
-//  let newProduct = React.createRef();
- 
- let addProduct = () =>{
-  debugger;
-  // let product = newProduct.current.value;
-  props.dispatch({ type: "ADD_PRODUCT", product: "New Product" });
+  let addProduct = () => {
+    
+    // let product = newProduct.current.value;
+    props.addProduct()
 
-}
+  }
+  
   return (
     <div>
       <div>My items</div>
       <div>
-        <button onClick={ addProduct} >Buy product</button>
+        <button onClick={addProduct} >Buy product</button>
       </div>
       <div className={s.posts}>
-        {props.postData.map((post, index) => (
-          <Post 
+        {props.postData?.map((post, index) => (
+
+          <Post
             key={index}
-            rating={post.rating} 
-            ratingStatus={post.ratingStatus} 
-            comment={post.comment} 
+            rating={post.rating}
+            ratingStatus={post.ratingStatus}
+            comment={post.comment}
           />
         ))}
       </div>

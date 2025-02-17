@@ -22,14 +22,14 @@ const App = (props) => {
           <Routes>
             <Route
               path='/news'
-              element={<News NewsData={props.NewsData} />}
+              // element={<News NewsData={props.NewsData} />}
             />
             <Route
               path='/profile'
               element={
                 <Profile
-                  postData={props.productData}
-                  dispatch={props.dispatch} // Передаем dispatch
+                  // postData={props.productData}
+                  // dispatch={props.dispatch} // Передаем dispatch
                 />
               }
             />
@@ -37,11 +37,11 @@ const App = (props) => {
               path='/whyus'
               element={
                 <WhyusContainer
-                  advantages={props.NewsData.Whyus}
-                  reviews={props.NewsData.reviews}
-                  newQuestionText={props.Questions.newQuestionText} // Передаем состояние из Questions
-                  dispatch={props.dispatch} // Передаем dispatch
-                  store={store}
+                  // advantages={props.NewsData.Whyus}
+                  // reviews={props.NewsData.reviews}
+                  // newQuestionText={props.Questions.newQuestionText} // Передаем состояние из Questions
+                  // dispatch={props.dispatch} // Передаем dispatch
+                  // store={store}
                   />
               }
             />

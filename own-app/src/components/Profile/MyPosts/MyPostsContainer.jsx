@@ -1,19 +1,26 @@
 import React from "react";
 import MyPosts from "./MyPosts";
+import StoreContext from "../../redux/StoreContext";
 
-
-const MyPostsContainer = (props) => {
-
-  let addProduct = () => {
-    props.store.dispatch({ type: 'ADD_PRODUCT', product: "New Product" });
-  }
-  
-
+const MyPostsContainer = () => {
   return (
-    <MyPosts addProduct={addProduct} 
-    postData={props.store.getState().profileProduct.productData}
-     dispatch={props.store.dispatch} />
+    <StoreContext.Consumer>
+      {(store) => {
+        console.log("postData в MyPostsContainer:", store.getState().profileProduct.productData);
 
+        const addProduct = () => {
+          store.dispatch({ type: "ADD_PRODUCT", product: "New Product" });
+        };
+
+        return (
+          <MyPosts
+            addProduct={addProduct}
+            postData={store.getState().profileProduct.productData}
+            dispatch={store.dispatch}
+          />
+        );
+      }}
+    </StoreContext.Consumer>
   );
 };
 

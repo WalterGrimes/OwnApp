@@ -1,9 +1,10 @@
 import React from "react";
 import s from "./Whyus.module.css";
-import { updateNewQuestionAC,addQuestionAC } from "../redux/questions-reducer";
+import { updateNewQuestionAC, addQuestionAC } from "../redux/questions-reducer";
 
 const Whyus = (props) => {
-  
+  console.log("Whyus rendered with newQuestionText:", props.newQuestionText); // Лог, когда компонент рендерится
+
   const {
     advantages,  
     reviews,
@@ -11,22 +12,18 @@ const Whyus = (props) => {
   } = props;
 
   const onSendQuestion = () => {
+    console.log("onSendQuestion triggered with:", newQuestionText); // Лог, когда нажата кнопка "Send Question"
     if (props.newQuestionText.trim()) {
-      // props.dispatch(addQuestionAC());
       props.onSendQuestion();
- // Отправляем вопрос
     }
   };
-  
 
   const onQuestionChange = (event) => {
     const text = event.target.value;
-    console.log("onQuestionChange event:", event);
+    console.log("onQuestionChange event:", event); // Логируем событие при изменении текста
 
-    // props.dispatch( updateNewQuestionAC(text) ); // Передаем текст в сторе
-    props.updateNewQuestionAC(text);
+    props.updateNewQuestionAC(text); // Передаем новый текст в хранилище
   };
-  
 
   return (
     <div className={s.Whyus}>

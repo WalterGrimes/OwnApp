@@ -1,42 +1,45 @@
 import React from "react";
 import { updateNewQuestionAC, addQuestionAC } from "../redux/questions-reducer";
 import Whyus from "./Whyus";
+import StoreContext from "../redux/StoreContext";
 
-const WhyusContainer = (props) => {
-
-
-//  const onSendQuestion = () => {
-//   if (!props.addQuestionAC) {
-//     console.error("Ошибка: addQuestionAC не передан в Whyus");
-//     return;
-//   }
-//   if (props.newQuestionText.trim()) {
-//     props.addQuestionAC();
-//   }
-// };
-
-
-//   const onQuestionChange = (event,value) => { // Передаём event
-//     let action = updateNewQuestionAC(event.target.value);
-//     props.store.dispatch(action);
-  // };
-
+const WhyusContainer = () => {
   return (
-    <Whyus 
-      updateNewQuestionAC={(text) => {
-        props.store.dispatch(updateNewQuestionAC(text));
-      }} 
-      onSendQuestion={() => {
-        if (props.newQuestionText.trim()) {
-          props.store.dispatch(addQuestionAC());
-        }
+    <StoreContext.Consumer>
+      {(store) => {
+        const state = store.getState();
+        const newQuestionText = state.Questions.newQuestionText;
+        const advantages = state.NewProducts.Whyus; // Доступ к Whyus из NewProducts
+        const reviews = state.NewProducts.reviews; // Доступ к reviews из NewProducts
+
+        console.log('Advantages in container:', advantages); // Логируем advantages
+        console.log('Reviews in container:', reviews); // Логируем reviews
+
+        const onSendQuestion = () => {
+          if (newQuestionText && typeof newQuestionText === 'string' && newQuestionText.trim()) {
+            store.dispatch(addQuestionAC());
+          } else {
+            console.log("Invalid question text:", newQuestionText);
+          }
+        };
+
+        const onQuestionChange = (text) => {
+          store.dispatch(updateNewQuestionAC(text));
+        };
+
+        return (
+          <Whyus
+            updateNewQuestionAC={onQuestionChange}
+            onSendQuestion={onSendQuestion}
+            advantages={advantages}
+            reviews={reviews}
+            newQuestionText={newQuestionText}
+          />
+        );
       }}
-      advantages={props.advantages} 
-      reviews={props.reviews} 
-      newQuestionText={props.newQuestionText}
-    />
+    </StoreContext.Consumer>
   );
 };
-  
+
 
 export default WhyusContainer;

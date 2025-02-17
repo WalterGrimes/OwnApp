@@ -4,28 +4,31 @@ import reportWebVitals from './reportWebVitals';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
+import {Provider} from './components/redux/StoreContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 // Функция рендера приложения
-let rerenderEntireTree = () => {
+let rerenderEntireTree = (store) => {
   root.render(
     <React.StrictMode>
-      <App
-        productData={store.getState().profileProduct.productData} // Используем getState
-        NewsData={store.getState().NewProducts} // Используем getState
-        Questions={store.getState().Questions} // Передаем секцию вопросов
-        dispatch={store.dispatch.bind(store)} // Передаем dispatch
-      />
+      <Provider store={store}>
+        <App
+          productData={store.getState().profileProduct.productData}
+          NewsData={store.getState().NewProducts}
+          Questions={store.getState().Questions}
+          dispatch={store.dispatch.bind(store)}
+        />
+      </Provider>
     </React.StrictMode>
   );
 };
 
 // Изначальный рендер
-rerenderEntireTree();
+rerenderEntireTree(store);
 
 // Подписка на изменения состояния
-store.subscribe(rerenderEntireTree);
+store.subscribe(()=>rerenderEntireTree(store));
 
 // Включаем измерение производительности
 reportWebVitals();
