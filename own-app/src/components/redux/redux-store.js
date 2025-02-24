@@ -6,7 +6,7 @@ import whyusReducer from './whyus-reducer';
 import newsReducer from './news-reducer';
 
 let reducers = combineReducers({
-  profileProductPage: profileReducer,
+  profileProduct: profileReducer,
   whyus: whyusReducer,
   questionsPage: questionsReducer,
   newsPage: newsReducer,

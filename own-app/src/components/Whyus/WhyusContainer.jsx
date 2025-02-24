@@ -1,45 +1,34 @@
 import React from "react";
 import { updateNewQuestionAC, addQuestionAC } from "../redux/questions-reducer";
 import Whyus from "./Whyus";
-import StoreContext from "../redux/StoreContext";
+import { connect } from "react-redux";
 
-const WhyusContainer = () => {
-  return (
-    <StoreContext.Consumer>
-      {(store) => {
-        const state = store.getState();
-        const newQuestionText = state.Questions.newQuestionText;
-        const advantages = state.NewProducts.Whyus; // Доступ к Whyus из NewProducts
-        const reviews = state.NewProducts.reviews; // Доступ к reviews из NewProducts
 
-        console.log('Advantages in container:', advantages); // Логируем advantages
-        console.log('Reviews in container:', reviews); // Логируем reviews
 
-        const onSendQuestion = () => {
-          if (newQuestionText && typeof newQuestionText === 'string' && newQuestionText.trim()) {
-            store.dispatch(addQuestionAC());
-          } else {
-            console.log("Invalid question text:", newQuestionText);
-          }
-        };
+let mapStateToProps = (state) => {
+  console.log("questionsPage в store:", state.questionsPage);
 
-        const onQuestionChange = (text) => {
-          store.dispatch(updateNewQuestionAC(text));
-        };
+  return {
+    advantages: state.newsPage.Whyus,
+    reviews: state.newsPage.reviews,
+    newQuestionText: state.questionsPage.newQuestionText
 
-        return (
-          <Whyus
-            updateNewQuestionAC={onQuestionChange}
-            onSendQuestion={onSendQuestion}
-            advantages={advantages}
-            reviews={reviews}
-            newQuestionText={newQuestionText}
-          />
-        );
-      }}
-    </StoreContext.Consumer>
-  );
+  }
+}
+
+let mapDispatchToProps = (dispatch) => {
+  return {
+    updateNewQuestionAC: (text) => {
+      dispatch(updateNewQuestionAC(text));
+    },
+    onSendQuestion: () => {  // УБРАЛ text
+      dispatch(addQuestionAC());
+    }
+  };
 };
+
+
+const WhyusContainer = connect(mapStateToProps,mapDispatchToProps)(Whyus);
 
 
 export default WhyusContainer;

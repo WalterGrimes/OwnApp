@@ -1,27 +1,24 @@
 import React from "react";
 import MyPosts from "./MyPosts";
-import StoreContext from "../../redux/StoreContext";
+import { connect } from "react-redux";
 
-const MyPostsContainer = () => {
-  return (
-    <StoreContext.Consumer>
-      {(store) => {
-        console.log("postData в MyPostsContainer:", store.getState().profileProduct.productData);
 
-        const addProduct = () => {
-          store.dispatch({ type: "ADD_PRODUCT", product: "New Product" });
-        };
-
-        return (
-          <MyPosts
-            addProduct={addProduct}
-            postData={store.getState().profileProduct.productData}
-            dispatch={store.dispatch}
-          />
-        );
-      }}
-    </StoreContext.Consumer>
-  );
+const mapStateToProps = (state) => {
+  console.log("profileProduct в mapStateToProps:", state.profileProduct);
+  return {
+    postData: state.profileProduct?.productData || [], // добавляем безопасный доступ
+  };
 };
+
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addProduct: () => {
+      dispatch({ type: "ADD_PRODUCT", product: "New Product" });
+    },
+  };
+};
+
+const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts);
 
 export default MyPostsContainer;

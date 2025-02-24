@@ -13,26 +13,15 @@ const initialState = {
       { rating: "Budget option", ratingStatus: "3.5 stars", comment: "Good for the price." },
     ],
   },
-  NewProducts: {
+  newsPage: {
     NewsData: [
       { id: 1, advantage: "Protein Maxler" },
       { id: 2, advantage: "Mezomorf crazy" },
       { id: 3, advantage: "Creatine blue" },
       { id: 4, advantage: "Gainer Bucked up" },
     ],
-    Whyus: ["First Advantage", "Second Advantage", "Third Advantage", "Fourth Advantage"],
-    reviews: [
-      "Top Quality Products – Guaranteed 100% original and effective.",
-      "Endorsed by Celebrities – Trusted by Dwayne 'The Rock' Johnson, Chris Hemsworth, and other top athletes.",
-      "Innovative Solutions – Cutting-edge designs and formulas.",
-      "Nationwide Leader – Recognized as the best in the country.",
-    ],
-  },
-  Questions: {
-    newQuestionText: "",
-    questions: [],
-  },
-};
+  s}
+}
 
 // Создание store
 // state.js
@@ -53,9 +42,9 @@ const store = {
 
   dispatch(action) {
     this._state.profileProduct = profileReducer(this._state.profileProduct, action);
-    this._state.NewProducts = newsReducer(this._state.NewProducts, action);
-    this._state.whyus = whyusReducer(this._state.whyus, action);
-    this._state.Questions = questionsReducer(this._state.Questions, action);
+    this._state.newsPage = newsReducer(this._state.newsPage, action);
+    this._state.newsPage.Whyus = whyusReducer(this._state.newsPage.Whyus, action);
+    this._state.questionsPage = questionsReducer(this._state.questionsPage, action);
     this._callsubscriber(this._state); // Уведомляем подписчиков
   },
 };

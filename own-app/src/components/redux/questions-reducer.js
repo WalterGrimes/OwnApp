@@ -2,11 +2,14 @@ const ADD_QUESTION = "ADD_QUESTION";
 const UPDATE_NEW_QUESTION_TEXT = "UPDATE_NEW_QUESTION_TEXT";
 
 const initialState = {
-  newQuestionText: "",
-  questions: [],
+  questionsPage: {
+    newQuestionText: "",
+    questions: [],
+  },
 };
 
-const questionsReducer = (state = initialState, action) => {
+
+const questionsReducer = (state = initialState.questionsPage, action) => {
   switch (action.type) {
     case ADD_QUESTION:
       const text = state.newQuestionText.trim();

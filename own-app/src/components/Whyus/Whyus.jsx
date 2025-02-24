@@ -19,12 +19,15 @@ const Whyus = (props) => {
   };
 
   const onQuestionChange = (event) => {
+    // debugger; // Останавливаем выполнение кода для отладки
     const text = event.target.value;
     console.log("onQuestionChange event:", event); // Логируем событие при изменении текста
+    console.log("New text input value:", text); // Логируем новое значение
 
     props.updateNewQuestionAC(text); // Передаем новый текст в хранилище
   };
-
+  
+  
   return (
     <div className={s.Whyus}>
       {advantages && (

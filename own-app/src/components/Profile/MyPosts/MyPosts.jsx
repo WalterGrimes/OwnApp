@@ -3,7 +3,7 @@ import s from "./MyPosts.module.css";
 import Post from "./Post/Post";
 
 const MyPosts = (props) => {
-  
+  console.log("props в MyPosts:", props);
   //  let newProduct = React.createRef();
 
   let addProduct = () => {
