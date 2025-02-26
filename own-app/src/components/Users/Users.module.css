@@ -1,0 +1,60 @@
+.usersContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+}
+
+.userCard {
+    width: 200px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    text-align: center;
+}
+
+.userPhotoContainer {
+    position: relative;
+}
+
+.userPhoto {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.showButton {
+    margin-top: 10px;
+    padding: 5px 10px;
+    border: none;
+    background: #007bff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.showButton:hover {
+    background: #0056b3;
+}
+
+.userInfo {
+    margin-top: 10px;
+}
+
+.userName {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.userStatus {
+    font-size: 14px;
+    color: gray;
+}
+
+.userCity {
+    font-size: 14px;
+    color: #666;
+}

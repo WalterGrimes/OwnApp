@@ -10,6 +10,7 @@ import FavProduct from './components/FavoriteProducts/FavProduct';
 import WhyusContainer from './components/Whyus/WhyusContainer';
 import { connect } from 'react-redux';
 import store from "./components/redux/redux-store";
+import UsersContainer from './components/Users/UsersContainer';
 
 
 const App = (props) => {
@@ -17,7 +18,6 @@ const App = (props) => {
 
 
   return (
-    <BrowserRouter>
       <div className='app-wrapper'>
         <Header />
         <Navbar />
@@ -35,10 +35,12 @@ const App = (props) => {
             <Route path='/favoriteproducts' element={<FavProduct />} />
             <Route path='/settings' element={<div>Settings Page</div>} />
             <Route path='/music' element={<div>Music Page</div>} />
+            
+            <Route path='/users' 
+            element={<UsersContainer/>} />
           </Routes>
         </div>
       </div>
-    </BrowserRouter>
   );
 };
 

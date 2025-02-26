@@ -9,12 +9,11 @@ let mapStateToProps = (state) => {
   console.log("questionsPage в store:", state.questionsPage);
 
   return {
-    advantages: state.newsPage.Whyus,
-    reviews: state.newsPage.reviews,
-    newQuestionText: state.questionsPage.newQuestionText
-
-  }
-}
+    advantages: state.whyus?.Whyus, 
+    reviews: state.whyus?.reviews,
+    newQuestionText: state.questionsPage?.newQuestionText || "",
+  };
+};
 
 let mapDispatchToProps = (dispatch) => {
   return {

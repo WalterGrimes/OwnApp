@@ -4,12 +4,14 @@ import questionsReducer from './questions-reducer';
 import profileReducer from './profile-reducer';
 import whyusReducer from './whyus-reducer';
 import newsReducer from './news-reducer';
+import usersReducer from './users-reducer';
 
 let reducers = combineReducers({
   profileProduct: profileReducer,
   whyus: whyusReducer,
   questionsPage: questionsReducer,
   newsPage: newsReducer,
+  usersPage: usersReducer,
 });
 
 let store = configureStore({

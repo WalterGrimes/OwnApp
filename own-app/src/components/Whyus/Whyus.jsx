@@ -4,7 +4,7 @@ import { updateNewQuestionAC, addQuestionAC } from "../redux/questions-reducer";
 
 const Whyus = (props) => {
   console.log("Whyus rendered with newQuestionText:", props.newQuestionText); // Лог, когда компонент рендерится
-
+  console.log(props.advantages);
   const {
     advantages,  
     reviews,
