@@ -42,6 +42,13 @@ const Navbar = () => {
       </div>
       <div className={s.item}>
         <NavLink 
+          to="/Users" 
+          className={({ isActive }) => isActive ? s.activeClick : undefined}>
+          Users
+        </NavLink>
+      </div>
+      <div className={s.item}>
+        <NavLink 
           to="/favoriteproducts" 
           className={({ isActive }) => isActive ? s.activeClick : undefined}>
           Favorite products

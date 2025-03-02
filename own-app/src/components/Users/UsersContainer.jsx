@@ -10,20 +10,20 @@ let mapStateToProps = (state) => {
     }
 }
 
-
 let mapDispatchToProps = (dispatch) => {
     return {
         show: (userId) => {
-            dispatch(showUsersItemAC(userId))
+            dispatch(showUsersItemAC(userId));
         },
         hide: (userId) => {
-            dispatch(hideUsersItemAC(userId))
+            dispatch(hideUsersItemAC(userId));
         },
         setUsers: (users) => {
-            dispatch(setUsersAC)(users)
+            dispatch(setUsersAC(users)); // <-- исправлено
         }
-    }
-}
+    };
+};
+
 
 
 
