@@ -35,7 +35,7 @@ const App = (props) => {
             <Route path='/favoriteproducts' element={<FavProduct />} />
             <Route path='/settings' element={<div>Settings Page</div>} />
             <Route path='/music' element={<div>Music Page</div>} />
-            
+             
             <Route path='/users' 
             element={<UsersContainer/>} />
           </Routes>

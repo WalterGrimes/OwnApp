@@ -4,25 +4,15 @@ import axios from "axios";
 import userPhoto from "../../userDetails/photoNotUser/user.jpg";
 
 class Users extends React.Component {
-
-    constructor(props) {
-        super(props);
-        axios.get("https://social-network.samuraijs.com/api/1.0/users")
-            .then(response => {
-                this.props.setUsers(response.data.items);
-            })
-            .catch(error => console.error("Ошибка загрузки пользователей:", error));
-    }
     
 
-     getUsers = () => {
+    componentDidMount(){
         axios.get("https://social-network.samuraijs.com/api/1.0/users")
-            .then(response => {
-                this.props.setUsers(response.data.items);
-            })
-            .catch(error => console.error("Ошибка загрузки пользователей:", error));
-    };
-
+        .then(response => {
+            this.props.setUsers(response.data.items);
+        })
+        .catch(error => console.error("Ошибка загрузки пользователей:", error));
+    }
 
     render() {
          return (
