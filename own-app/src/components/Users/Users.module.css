@@ -58,3 +58,24 @@
     font-size: 14px;
     color: #666;
 }
+
+.pageNumber {
+    cursor: pointer;
+    padding: 5px 10px;
+    margin: 3px;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
+.selectedPage {
+    font-weight: bold;
+    color: white;
+    background-color: blue;
+}
+.paginationContainer {
+    border: 2px solid red; /* Проверим, что контейнер рендерится */
+    padding: 10px;
+    display: flex;
+    gap: 5px;
+}
+
