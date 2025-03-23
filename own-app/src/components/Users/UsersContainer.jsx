@@ -5,33 +5,39 @@ import axios from "axios";
 import Users from "./Users";
 import Preloader from "../IDK/Preloader/Preloader";
 
-class UsersContainer extends React.Component {
+class UsersContainer extends React.Component {  
     componentDidMount() {
-        this.props.setThatFetching(true); // Исправлено
+        this.props.setThatFetching(true);
         this.onPageChanged(this.props.currentPage);
     }
 
     onPageChanged = (pageNumber) => {
         console.log("Загружаем пользователей для страницы:", pageNumber);
         
-        this.props.setThatFetching(true); // Включаем прелоадер перед запросом
+        this.props.setThatFetching(true);
 
         axios
-            .get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
-            .then(response => {
-                this.props.setThatFetching(false); // Выключаем прелоадер после ответа
-                this.props.setUsers(response.data.items);
-                this.props.setAllUsersCount(response.data.totalCount);
-                this.props.setPage(pageNumber);
-            });
+    .get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`, {
+        withCredentials: true
+    })
+    .then(response => {
+        this.props.setThatFetching(false);
+        this.props.setUsers(response.data.items);
+        this.props.setAllUsersCount(response.data.totalCount);
+        this.props.setPage(pageNumber);
+    })
+    // .catch(error => {
+    //     this.props.setThatFetching(false);
+    //     console.error("Ошибка при загрузке пользователей:", error);
+    // });
+
     };
 
     render() {
+        console.log(this.props.users)
         return (
             <>
-                {this.props.isFetching && (
-                   <Preloader/>
-                )}
+                {this.props.isFetching && <Preloader />}
                 <Users 
                     users={this.props.users}
                     currentPage={this.props.currentPage}
@@ -45,9 +51,8 @@ class UsersContainer extends React.Component {
         );
     }
 }
-    
 
-let mapStateToProps = (state) => ({
+const mapStateToProps = (state) => ({
     users: state.usersPage.users,
     pageSize: state.usersPage.pageSize,
     allUsersCount: state.usersPage.allUsersCount,
@@ -55,13 +60,12 @@ let mapStateToProps = (state) => ({
     isFetching: state.usersPage.isFetching
 });
 
-let mapDispatchToProps = (dispatch) => ({
-    show: (userId) => dispatch(showUsersItemAC(userId)),
-    hide: (userId) => dispatch(hideUsersItemAC(userId)),
-    setUsers: (users) => dispatch(setUsersAC(users)), 
-    setPage: (pageNumber) => dispatch(setPageAC(pageNumber)),
-    setAllUsersCount: (totalCount) => dispatch(setAllUsersCountAC(totalCount)),
-    setThatFetching: (isFetching) => dispatch(setThatFetchingAC(isFetching)) // Исправлено
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);
+// Вместо mapDispatchToProps передаём объект с action creators
+export default connect(mapStateToProps, { 
+    show: showUsersItemAC,
+    hide: hideUsersItemAC,
+    setUsers: setUsersAC,
+    setPage: setPageAC,
+    setAllUsersCount: setAllUsersCountAC,
+    setThatFetching: setThatFetchingAC 
+})(UsersContainer);

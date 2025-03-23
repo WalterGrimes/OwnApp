@@ -6,3 +6,25 @@
    width: 20px;
  }
  
+ .loginBlock {
+  display: flex;
+  justify-content: center; /* Центрирует ссылку внутри блока */
+  align-items: center;
+  text-align: center;
+}
+
+.loginBlock a {
+  text-decoration: none;
+  color: white;
+  background-color: #007bff; /* Синий фон */
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background 0.3s;
+  display: inline-block; /* Чтобы отступы работали */
+}
+
+.loginBlock a:hover {
+  background-color: #0056b3; /* Тёмно-синий при наведении */
+}
+
