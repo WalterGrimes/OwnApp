@@ -4,6 +4,7 @@ import { hideUsersItemAC, setPageAC, setUsersAC, setAllUsersCountAC, showUsersIt
 import axios from "axios";
 import Users from "./Users";
 import Preloader from "../IDK/Preloader/Preloader";
+import { getUsers,usersAPI } from "../../API/API";
 
 class UsersContainer extends React.Component {  
     componentDidMount() {
@@ -16,14 +17,10 @@ class UsersContainer extends React.Component {
         
         this.props.setThatFetching(true);
 
-        axios
-    .get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`, {
-        withCredentials: true
-    })
-    .then(response => {
+       usersAPI.getUsers(this.props.pageNumber, this.props.pageSize).then(data => {
         this.props.setThatFetching(false);
-        this.props.setUsers(response.data.items);
-        this.props.setAllUsersCount(response.data.totalCount);
+        this.props.setUsers(data.items);
+        this.props.setAllUsersCount(data.totalCount);
         this.props.setPage(pageNumber);
     })
     // .catch(error => {
