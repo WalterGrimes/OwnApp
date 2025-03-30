@@ -1,28 +1,25 @@
 import React from "react";
 import Header from "./Header";
-import axios from "axios";
 import { setUsersData } from "../redux/auth-reducer";
 import { connect } from "react-redux";
+import { authAPI, getAuthUsersProfile } from "../../API/API";
 
 class HeaderContainer extends React.Component {
   componentDidMount() {
-    axios
-      .get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
-        withCredentials: true,
+    authAPI.getAuth()
+      .then(userData => {
+        const { id, login, email } = userData;
+        this.props.setUsersData(login, id, email);
+        
+        return authAPI.getAuthUsersProfile(id);
       })
-      .then((response) => {
-        if (response.data.resultCode === 0) {
-          let { login, id, email } = response.data.data;
-          this.props.setUsersData(login, id, email);
-
-          axios
-            .get(`https://social-network.samuraijs.com/api/1.0/profile/${id}`)
-            .then((profileResponse) => {
-              let photo = profileResponse.data.photos.small;
-              this.props.setUsersData(login, id, email, photo);
-            })
-        }
+      .then(profileData => {
+        this.props.setUsersData(null, null, null, profileData.photos.small);
       })
+      .catch(error => {
+        console.error("Error:", error);
+        // Можно добавить обработку ошибки (например, редирект на логин)
+      });
   }
 
   render() {

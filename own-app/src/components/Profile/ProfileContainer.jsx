@@ -2,28 +2,25 @@ import React, { useEffect } from "react";
 import Profile from "./Profile";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 import { setUsersProfileAC } from "../redux/profile-reducer";
+import { profileAPI } from "../../API/API";
 
 const ProfileContainer = ({ profile, setUsersProfileAC }) => {
   let { userId } = useParams();
-  if (!userId) userId = "2"; // Дефолтный ID, если нет userId
+  if (!userId) userId = "2";
 
   const fetchProfile = (id) => {
-    axios
-      .get(`https://social-network.samuraijs.com/api/1.0/profile/${id}`)
+    profileAPI.getProfile(id)
       .then(response => {
-        console.log("API Response:", response.data);
         setUsersProfileAC(response.data);
       })
       .catch(error => {
         console.error("Ошибка загрузки профиля:", error);
-
-        // Если 400 то будет рандом юсер
+        
         if (error.response && error.response.status === 400) {
           const randomUserId = Math.floor(Math.random() * 10) + 1;
           console.log("Выбран случайный userId:", randomUserId);
-          fetchProfile(randomUserId); // Вызов еще раз
+          fetchProfile(randomUserId);
         }
       });
   };
