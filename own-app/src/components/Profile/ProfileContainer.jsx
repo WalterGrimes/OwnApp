@@ -3,7 +3,7 @@ import Profile from "./Profile";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 import { setUsersProfileAC } from "../redux/profile-reducer";
-import { profileAPI } from "../../API/API";
+import { profileAPI } from "../../API/API"
 
 const ProfileContainer = ({ profile, setUsersProfileAC }) => {
   let { userId } = useParams();
