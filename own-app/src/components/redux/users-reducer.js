@@ -4,6 +4,7 @@ const SET_USERS = "SET_USERS";
 const SET_PAGE = "SET_PAGE";
 const SET_ALL_USERS_COUNT = "SET_ALL_USERS_COUNT";
 const SET_THAT_FETCHING = "SET_THAT_FETCHING"; // Исправил пробел в названии
+const TOGGLE_IS_SHOWING = " TOGGLE_IS_SHOWING";
 
 const initialState = {
   users: [
@@ -52,7 +53,8 @@ const initialState = {
   pageSize: 5,
   allUsersCount: 0,
   currentPage: 5,
-  isFetching: false // По умолчанию лучше `false`, иначе будет показывать прелоадер сразу
+  isFetching: false,// По умолчанию лучше `false`, иначе будет показывать прелоадер сразу
+  showingInProgress: []
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -99,6 +101,14 @@ const usersReducer = (state = initialState, action) => {
         isFetching: action.isFetching // Исправлено `isThatFetching` → `isFetching`
       };
 
+    case "TOGGLE_IS_SHOWING":
+      return {
+        ...state,
+        showingInProgress: action.isFetching
+          ? [...state.showingInProgress, action.userId]
+          : state.showingInProgress.filter(id => id !== action.userId)
+      };
+
     default:
       return state;
   }
@@ -111,5 +121,7 @@ export const setUsersAC = (users) => ({ type: SET_USERS, users });
 export const setPageAC = (currentPage) => ({ type: SET_PAGE, currentPage });
 export const setAllUsersCountAC = (allUsersCount) => ({ type: SET_ALL_USERS_COUNT, allUsersCount });
 export const setThatFetchingAC = (isFetching) => ({ type: SET_THAT_FETCHING, isFetching });
+export const toggleIsShowing = (isFetching, userId) => ({ type: TOGGLE_IS_SHOWING, isFetching, userId });
+
 
 export default usersReducer;

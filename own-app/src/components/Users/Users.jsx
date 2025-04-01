@@ -39,42 +39,34 @@ const Users = (props) => {
                             </NavLink>
                             <div>
                                 {u.isShown ? (
-                                    <button
+                                    <button 
+                                        disabled={props.showingInProgress.some(id => id === u.id)}
                                         className={s.showButton}
                                         onClick={() => {
+                                            props.toggleIsShowing(true, u.id); // Исправленное название
                                             usersAPI.hideUsersProduct(u.id)
                                                 .then((response) => {
                                                     if (response.resultCode === 0) {
                                                         props.hide(u.id);
-                                                    } else {
-                                                        alert(response.messages[0] || "Ошибка при скрытии");
                                                     }
-                                                })
-                                                .catch(() => {
-                                                    alert("Ошибка при попытке скрыть пользователя");
+                                                    props.toggleIsShowing(false, u.id); // Исправленное название
                                                 });
                                         }}
                                     >
                                         Hide
                                     </button>
                                 ) : (
-                                    <button
+                                    <button 
+                                        disabled={props.showingInProgress.some(id => id === u.id)}
                                         className={s.showButton}
                                         onClick={() => {
-                                            if (u.followed) {
-                                                alert("Вы уже подписаны на этого пользователя!");
-                                                return;
-                                            }
+                                            props.toggleIsShowing(true, u.id); // Исправленное название
                                             usersAPI.showUsersProduct(u.id)
                                                 .then((response) => {
                                                     if (response.resultCode === 0) {
                                                         props.show(u.id);
-                                                    } else {
-                                                        alert(response.messages[0] || "Ошибка при подписке");
                                                     }
-                                                })
-                                                .catch(() => {
-                                                    alert("Ошибка при попытке посмотреть");
+                                                    props.toggleIsShowing(false, u.id); // Исправленное название
                                                 });
                                         }}
                                     >
