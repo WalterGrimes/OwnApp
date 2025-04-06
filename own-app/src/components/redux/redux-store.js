@@ -6,6 +6,7 @@ import whyusReducer from './whyus-reducer';
 import newsReducer from './news-reducer';
 import usersReducer from './users-reducer';
 import authReducer from './auth-reducer';
+import { thunk } from 'redux-thunk';
 
 let reducers = combineReducers({
   profileProduct: profileReducer,
@@ -16,8 +17,16 @@ let reducers = combineReducers({
   auth: authReducer
 });
 
+const loggerMiddleware = store => next => action => {
+  console.log('Dispatching action:', action);  // Логируем действие
+  return next(action);  // Передаем действие дальше в middleware/редюсеры
+};
+
 let store = configureStore({
-  reducer: reducers, // reducers передается корректно
+  reducer: reducers,  // ваши редюсеры
+  middleware: (getDefaultMiddleware) => 
+    getDefaultMiddleware().concat(loggerMiddleware),  // Добавление loggerMiddleware
 });
+
 
 export default store;

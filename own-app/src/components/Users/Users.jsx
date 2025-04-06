@@ -19,8 +19,8 @@ const Users = (props) => {
                     <span
                         key={p}
                         className={props.currentPage === p ? s.selectedPage : s.pageNumber}
-                        onClick={() => props.onPageChanged(p)}
-                    >
+                        onClick={() => props.onPageChanged(p)} >
+                    
                         {p}
                     </span>
                 ))}
@@ -40,37 +40,22 @@ const Users = (props) => {
                             <div>
                                 {u.isShown ? (
                                     <button 
+
                                         disabled={props.showingInProgress.some(id => id === u.id)}
                                         className={s.showButton}
-                                        onClick={() => {
-                                            props.toggleIsShowing(true, u.id); // Исправленное название
-                                            usersAPI.hideUsersProduct(u.id)
-                                                .then((response) => {
-                                                    if (response.resultCode === 0) {
-                                                        props.hide(u.id);
-                                                    }
-                                                    props.toggleIsShowing(false, u.id); // Исправленное название
-                                                });
-                                        }}
-                                    >
-                                        Hide
+                                        onClick={() => { props.hide(u.id) }} >
+                                       Hide
+                                       
                                     </button>
                                 ) : (
                                     <button 
+
                                         disabled={props.showingInProgress.some(id => id === u.id)}
                                         className={s.showButton}
-                                        onClick={() => {
-                                            props.toggleIsShowing(true, u.id); // Исправленное название
-                                            usersAPI.showUsersProduct(u.id)
-                                                .then((response) => {
-                                                    if (response.resultCode === 0) {
-                                                        props.show(u.id);
-                                                    }
-                                                    props.toggleIsShowing(false, u.id); // Исправленное название
-                                                });
-                                        }}
-                                    >
+                                        onClick={() => {  props.show(u.id)
+                                        }} >
                                         Show
+                                        
                                     </button>
                                 )}
                             </div>

@@ -1,3 +1,5 @@
+import { usersAPI } from "../../API/API";
+
 const SHOW = "SHOW";
 const HIDE = "HIDE";
 const SET_USERS = "SET_USERS";
@@ -115,13 +117,58 @@ const usersReducer = (state = initialState, action) => {
 };
 
 // Action Creators
-export const showUsersItemAC = (userId) => ({ type: SHOW, userId });
-export const hideUsersItemAC = (userId) => ({ type: HIDE, userId });
-export const setUsersAC = (users) => ({ type: SET_USERS, users });
-export const setPageAC = (currentPage) => ({ type: SET_PAGE, currentPage });
-export const setAllUsersCountAC = (allUsersCount) => ({ type: SET_ALL_USERS_COUNT, allUsersCount });
-export const setThatFetchingAC = (isFetching) => ({ type: SET_THAT_FETCHING, isFetching });
+export const showUsersItemSuccess = (userId) => ({ type: SHOW, userId });
+export const hideUsersItemSuccess = (userId) => ({ type: HIDE, userId });
+export const setUsers = (users) => ({ type: SET_USERS, users });
+export const setPage = (currentPage) => ({ type: SET_PAGE, currentPage });
+export const setAllUsersCount = (allUsersCount) => ({ type: SET_ALL_USERS_COUNT, allUsersCount });
+export const setThatFetching = (isFetching) => ({ type: SET_THAT_FETCHING, isFetching });
 export const toggleIsShowing = (isFetching, userId) => ({ type: TOGGLE_IS_SHOWING, isFetching, userId });
+
+
+
+export const getUsersThunkCreator = (pageNumber, pageSize) => {
+  return (dispatch) => {
+    dispatch(toggleIsShowing(true));
+
+    usersAPI.getUsers(pageNumber, pageSize)
+      .then(data => {
+        dispatch(setPage(pageNumber)); // Используем pageNumber из аргументов
+        dispatch(setThatFetching(false));
+        dispatch(setUsers(data.items));
+        dispatch(setAllUsersCount(data.totalCount));
+      });
+  };
+};
+
+export const show = (usersId) => {
+  return (dispatch) => {  // Добавляем возврат функции с dispatch
+    dispatch(toggleIsShowing(true, usersId));
+    usersAPI.showUsersProduct(usersId)
+      .then((response) => {
+        if (response.resultCode === 0) {
+          dispatch(showUsersItemSuccess(usersId));
+        }
+        dispatch(toggleIsShowing(false, usersId));
+      });
+  };
+};
+
+export const hide = (usersId) => {
+  return (dispatch) => {  // Добавляем возврат функции с dispatch
+    dispatch(toggleIsShowing(true, usersId));
+    usersAPI.hideUsersProduct(usersId)
+      .then((response) => {
+        if (response.resultCode === 0) {
+          dispatch(hideUsersItemSuccess(usersId));
+        }
+        dispatch(toggleIsShowing(false, usersId));
+      });
+  };
+};
+
+
+
 
 
 export default usersReducer;

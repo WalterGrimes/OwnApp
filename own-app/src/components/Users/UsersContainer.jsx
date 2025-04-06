@@ -1,50 +1,44 @@
 import React from "react";
 import { connect } from "react-redux";
-import { 
-  hideUsersItemAC, 
-  setPageAC, 
-  setUsersAC, 
-  setAllUsersCountAC, 
-  showUsersItemAC, 
-  setThatFetchingAC, 
-  toggleIsShowing 
-} from "../redux/users-reducer";
+import { show, hide } from '../redux/users-reducer';
 import Users from "./Users";
 import Preloader from "../IDK/Preloader/Preloader";
-import { usersAPI } from "../../API/API";
 
 class UsersContainer extends React.Component {  
     componentDidMount() {
-        this.props.setThatFetching(true);
-        this.onPageChanged(this.props.currentPage);
+        const { currentPage, pageSize, getUsersThunkCreator } = this.props;
+        getUsersThunkCreator(currentPage, pageSize);
     }
 
+    // Просто обёртка над getUsersThunkCreator
     onPageChanged = (pageNumber) => {
-        this.props.setThatFetching(true);
-        
-        usersAPI.getUsers(pageNumber, this.props.pageSize)
-            .then(data => {
-                this.props.setThatFetching(false);
-                this.props.setUsers(data.items);
-                this.props.setAllUsersCount(data.totalCount);
-                this.props.setPage(pageNumber);
-            });
-    };
+        this.props.getUsersThunkCreator(pageNumber, this.props.pageSize);
+    }
 
     render() {
+        const { 
+            users, 
+            currentPage, 
+            allUsersCount, 
+            pageSize, 
+            isFetching, 
+            showingInProgress,
+            show,
+            hide,
+        } = this.props;
+
         return (
             <>
-                {this.props.isFetching && <Preloader />}
+                {isFetching && <Preloader />}
                 <Users 
-                    users={this.props.users}
-                    currentPage={this.props.currentPage}
-                    allUsersCount={this.props.allUsersCount}
-                    pageSize={this.props.pageSize}
-                    onPageChanged={this.onPageChanged}
-                    show={this.props.show}
-                    hide={this.props.hide}
-                    toggleIsShowing={this.props.toggleIsShowing} // Правильное название пропса
-                    showingInProgress={this.props.showingInProgress}
+                    users={users}
+                    currentPage={currentPage}
+                    allUsersCount={allUsersCount}
+                    pageSize={pageSize}
+                    onPageChanged={this.onPageChanged} // Передаём метод
+                    show={show}
+                    hide={hide}
+                    showingInProgress={showingInProgress}
                 />
             </>
         );
@@ -61,11 +55,9 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, { 
-    show: showUsersItemAC,
-    hide: hideUsersItemAC,
-    setUsers: setUsersAC,
-    setPage: setPageAC,
-    setAllUsersCount: setAllUsersCountAC,
-    setThatFetching: setThatFetchingAC,
-    toggleIsShowing // Синхронизировано с названием в Users
+    show: showUsersItem,
+    hide: hideUsersItem,
+    setThatFetching: setThatFetching,
+    toggleIsShowing,
+    getUsersThunkCreator, // Всё управление через этот санк
 })(UsersContainer);
