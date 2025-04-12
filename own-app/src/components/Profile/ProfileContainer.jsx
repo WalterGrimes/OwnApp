@@ -1,22 +1,18 @@
 import React, { useEffect } from "react";
 import Profile from "./Profile";
 import { connect } from "react-redux";
-import { useParams } from "react-router-dom";
-import { setUsersProfileAC } from "../redux/profile-reducer";
-import { profileAPI } from "../../API/API"
+import { Navigate, useParams } from "react-router-dom";
+import { getUsersProfile } from "../redux/profile-reducer";
 
-const ProfileContainer = ({ profile, setUsersProfileAC }) => {
+const ProfileContainer = ({ profile, getUsersProfile, isAuth }) => {
   let { userId } = useParams();
   if (!userId) userId = "2";
 
   const fetchProfile = (id) => {
-    profileAPI.getProfile(id)
-      .then(response => {
-        setUsersProfileAC(response.data);
-      })
-      .catch(error => {
+    getUsersProfile(id)
+      .catch((error) => {
         console.error("Ошибка загрузки профиля:", error);
-        
+
         if (error.response && error.response.status === 400) {
           const randomUserId = Math.floor(Math.random() * 10) + 1;
           console.log("Выбран случайный userId:", randomUserId);
@@ -29,11 +25,16 @@ const ProfileContainer = ({ profile, setUsersProfileAC }) => {
     fetchProfile(userId);
   }, [userId]);
 
+  if (!isAuth) {
+    return <Navigate to="/login" replace />;
+  }
+
   return <Profile profile={profile} />;
 };
 
 const mapStateToProps = (state) => ({
   profile: state.profileProduct.profile,
+  isAuth: state.auth.isAuth,
 });
 
-export default connect(mapStateToProps, { setUsersProfileAC })(ProfileContainer);
+export default connect(mapStateToProps, { getUsersProfile })(ProfileContainer);

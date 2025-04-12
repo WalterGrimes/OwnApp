@@ -1,3 +1,5 @@
+import { authAPI } from "../../API/API";
+
 const SET_USER_DATA = "SET_USER_DATA";
 
 
@@ -26,5 +28,19 @@ const authReducer = (state = initialState, action) => {
 
 // Action Creators
 export const setUsersData = (email,login,userId,photo=null) => ({ type: SET_USER_DATA, data: userId,email,login,photo })
+
+
+export const getAuth = () => {
+  return (dispatch) => {
+    return authAPI.getAuth()
+      .then(response => {
+        if (response.data.resultCode === 0) {
+          return response.data.data; // {id, email, login}
+        }
+        return Promise.reject(response.data.messages[0] || "Auth failed");
+      });
+  };
+};
+
 
 export default authReducer;

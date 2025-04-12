@@ -1,3 +1,7 @@
+import { usersAPI } from "../../API/API";
+import { profileAPI } from "../../API/API";
+
+
 const ADD_PRODUCT = "ADD_PRODUCT";
 const SET_USERS_PROFILE = "SET_USERS_PROFILE";
 
@@ -43,7 +47,21 @@ const profileReducer = (state = initialState.profileProduct, action) => {
   }
 };
 
-export const addProductAC = (product) => ({ type: ADD_PRODUCT, product });
-export const setUsersProfileAC = (profile) => ({ type: SET_USERS_PROFILE, profile });
+
+export const setUsersProfile = (profile) => ({ type: SET_USERS_PROFILE, profile });
+
+export const getUsersProfile = (userId) => {
+  return (dispatch) => {
+    return profileAPI.getProfile(userId)
+      .then((response) => {  // response содержит полный объект ответа Axios
+        dispatch(setUsersProfile(response.data)); // Сохраняем только data
+      })
+      .catch((error) => {
+        console.error("Ошибка загрузки профиля:", error);
+        throw error;
+      });
+  };
+};
+
 
 export default profileReducer;

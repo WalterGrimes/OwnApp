@@ -1,29 +1,23 @@
 import React from "react";
 import Header from "./Header";
-import { setUsersData } from "../redux/auth-reducer";
+import { getAuth } from "../redux/auth-reducer";
 import { connect } from "react-redux";
-import { authAPI } from "../../API/API"
-
+import { Navigate } from "react-router-dom";
 
 class HeaderContainer extends React.Component {
   componentDidMount() {
-    authAPI.getAuth()
-      .then(userData => {
-        const { id, login, email } = userData;
-        this.props.setUsersData(login, id, email);
-        
-        return authAPI.getAuthUsersProfile(id);
-      })
-      .then(profileData => {
-        this.props.setUsersData(null, null, null, profileData.photos.small);
-      })
-      .catch(error => {
-        console.error("Error:", error);
-        // Можно добавить обработку ошибки (например, редирект на логин)
-      });
+    this.props.getAuth().catch((error) => {
+      console.log("Ошибка регистрации:", error);
+    });
   }
 
   render() {
+    const { isAuth } = this.props;
+
+    // if (!isAuth) {
+    //   return <Navigate to="/login" replace />;
+    // }
+
     return <Header {...this.props} />;
   }
 }
@@ -31,7 +25,7 @@ class HeaderContainer extends React.Component {
 const mapStateToProps = (state) => ({
   isAuth: state.auth.isAuth,
   login: state.auth.login,
-  photo: state.auth.photo
+  photo: state.auth.photo,
 });
 
-export default connect(mapStateToProps, { setUsersData })(HeaderContainer);
+export default connect(mapStateToProps, { getAuth })(HeaderContainer);

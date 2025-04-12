@@ -1,6 +1,7 @@
 import React from "react";
 import s from "./Whyus.module.css";
 import { updateNewQuestionAC, addQuestionAC } from "../redux/questions-reducer";
+import { Navigate } from "react-router-dom";
 
 const Whyus = (props) => {
   console.log("Whyus rendered with newQuestionText:", props.newQuestionText); // Лог, когда компонент рендерится
@@ -27,7 +28,10 @@ const Whyus = (props) => {
     props.updateNewQuestionAC(text); // Передаем новый текст в хранилище
   };
   
-  
+  if(!props.isAuth){
+    return <Navigate to="/login" replace />
+  }
+
   return (
     <div className={s.Whyus}>
       {advantages && (

@@ -6,12 +6,11 @@ import { connect } from "react-redux";
 
 
 let mapStateToProps = (state) => {
-  console.log("questionsPage в store:", state.questionsPage);
-
   return {
     advantages: state.whyus?.Whyus, 
     reviews: state.whyus?.reviews,
     newQuestionText: state.questionsPage?.newQuestionText || "",
+    isAuth:state.auth.isAuth
   };
 };
 

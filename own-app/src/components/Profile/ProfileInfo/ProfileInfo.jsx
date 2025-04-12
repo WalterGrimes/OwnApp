@@ -1,6 +1,7 @@
 import React from "react";
 import s from "./ProfileInfo.module.css";
 import Preloader from '../../IDK/Preloader/Preloader'
+import defaultAva from '../../../userDetails/photoNotUser/user.jpg'
 
 const ProfileInfo = ({ profile }) => {
   console.log("ProfileInfo props:", profile);
@@ -15,7 +16,8 @@ const ProfileInfo = ({ profile }) => {
         <strong>{profile.fullName}</strong>
 
         <div className={s.imgUser}>
-        <img src={profile.photos.large} alt="avatar" />
+        <img src={profile.photos.large || defaultAva} alt="avatar" />
+
         </div>
        
       </div>
