@@ -1,46 +1,48 @@
 import { authAPI } from "../../API/API";
 
-const SET_USER_DATA = "SET_USER_DATA";
-
+const SET_AUTH_USER_DATA = "SET_AUTH_USER_DATA";
 
 const initialState = {
+  userId: null,
   email: null,
-  userid: null,
   login: null,
   isAuth: false,
-  photo:null
-  // isFetching: false // По умолчанию лучше `false`, иначе будет показывать прелоадер сразу
 };
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
-    case SET_USER_DATA:
+    case SET_AUTH_USER_DATA:
       return {
         ...state,
-        ...action.data,
-        isAuth: true
+        ...action.payload,
+        isAuth: true,
       };
-
     default:
       return state;
-  } 
+  }
 };
 
-// Action Creators
-export const setUsersData = (email,login,userId,photo=null) => ({ type: SET_USER_DATA, data: userId,email,login,photo })
+// Action creator для установки данных пользователя
+export const setAuthUserData = (userId, email, login) => ({
+  type: SET_AUTH_USER_DATA,
+  payload: { userId, email, login },
+});
 
-
+// Async action creator для получения данных авторизации
 export const getAuth = () => {
   return (dispatch) => {
-    return authAPI.getAuth()
-      .then(response => {
-        if (response.data.resultCode === 0) {
-          return response.data.data; // {id, email, login}
+    return authAPI
+      .getAuth()
+      .then((data) => {
+        if (data.resultCode === 0) {
+          const { id, email, login } = data.data;
+          dispatch(setAuthUserData(id, email, login)); // Сохраняем данные в state
         }
-        return Promise.reject(response.data.messages[0] || "Auth failed");
+      })
+      .catch((err) => {
+        console.error("Ошибка авторизации:", err);
       });
   };
 };
-
 
 export default authReducer;

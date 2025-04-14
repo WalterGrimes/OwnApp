@@ -3,20 +3,25 @@ import Profile from "./Profile";
 import { connect } from "react-redux";
 import { Navigate, useParams } from "react-router-dom";
 import { getUsersProfile } from "../redux/profile-reducer";
+import { authRedirect } from "../../hoc/authRedirect";
 
-const ProfileContainer = ({ profile, getUsersProfile, isAuth }) => {
+const ProfileContainer = ({ profile, getUsersProfile }) => {
   let { userId } = useParams();
   if (!userId) userId = "2";
 
-  const fetchProfile = (id) => {
+  const fetchProfile = (id, attempts = 0) => {
+    if (attempts > 5) {
+      console.error("Слишком много неудачных попыток загрузки профиля.");
+      return;
+    }
+
     getUsersProfile(id)
       .catch((error) => {
         console.error("Ошибка загрузки профиля:", error);
-
         if (error.response && error.response.status === 400) {
           const randomUserId = Math.floor(Math.random() * 10) + 1;
           console.log("Выбран случайный userId:", randomUserId);
-          fetchProfile(randomUserId);
+          fetchProfile(randomUserId, attempts + 1);
         }
       });
   };
@@ -25,8 +30,8 @@ const ProfileContainer = ({ profile, getUsersProfile, isAuth }) => {
     fetchProfile(userId);
   }, [userId]);
 
-  if (!isAuth) {
-    return <Navigate to="/login" replace />;
+  if (!profile || Object.keys(profile).length === 0) {
+    return <div>Загрузка профиля...</div>;
   }
 
   return <Profile profile={profile} />;
@@ -34,7 +39,7 @@ const ProfileContainer = ({ profile, getUsersProfile, isAuth }) => {
 
 const mapStateToProps = (state) => ({
   profile: state.profileProduct.profile,
-  isAuth: state.auth.isAuth,
 });
 
-export default connect(mapStateToProps, { getUsersProfile })(ProfileContainer);
+const ConnectedProfileContainer = connect(mapStateToProps, { getUsersProfile })(ProfileContainer);
+export default authRedirect(ConnectedProfileContainer);
